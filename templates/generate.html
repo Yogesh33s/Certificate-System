@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block title %}Generate Certificate - Certificate System{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">📜 Generate Certificate</h2>
+
+  {% if message %}
+    <div class="alert alert-info">{{ message }}</div>
+  {% endif %}
+
+  <form method="POST" class="border p-4 bg-white rounded shadow-sm">
+    <div class="mb-3">
+      <label class="form-label">Student ID</label>
+      <input type="number" class="form-control" name="student_id" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Certificate Type</label>
+      <select class="form-select" name="certificate_type" id="certificate_type" onchange="toggleEventFields()" required>
+        <option value="">Select Type</option>
+        <option value="Bonafide">Bonafide</option>
+        <option value="Academic">Academic</option>
+        <option value="Event">Event</option>
+      </select>
+    </div>
+
+    <div id="event_fields" style="display:none">
+      <div class="mb-3">
+        <label class="form-label">Event Title</label>
+        <input type="text" class="form-control" name="event_title">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Event By</label>
+        <input type="text" class="form-control" name="event_by">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Event Date</label>
+        <input type="date" class="form-control" name="event_date">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Event Venue</label>
+        <input type="text" class="form-control" name="event_venue">
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Generate Certificate</button>
+  </form>
+</div>
+
+<script>
+  function toggleEventFields() {
+    const type = document.getElementById('certificate_type').value;
+    const eventFields = document.getElementById('event_fields');
+    eventFields.style.display = (type.toLowerCase() === 'event') ? 'block' : 'none';
+  }
+</script>
+{% endblock %}
