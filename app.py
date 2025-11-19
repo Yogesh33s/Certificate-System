@@ -13,10 +13,11 @@ app = Flask(__name__)
 
 def get_connection():
     return oracledb.connect(
-        user="luser",
-        password="1234",
-        dsn="localhost/XEPDB1"
+        user=os.environ.get("ORACLE_USER", "luser"),
+        password=os.environ.get("ORACLE_PASSWORD", "1234"),
+        dsn=os.environ.get("ORACLE_DSN", "localhost/XEPDB1")
     )
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
